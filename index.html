@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Game - Login</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to the Quiz Game!</h1>
+    <div id="g_id_onload"
+         data-client_id="YOUR_GOOGLE_CLIENT_ID"
+         data-callback="handleGoogleSignIn"
+         data-auto_prompt="false">
+    </div>
+    <div class="g_id_signin" 
+         data-type="standard" 
+         data-shape="rectangular" 
+         data-theme="outline" 
+         data-text="sign_in_with" 
+         data-size="large" 
+         data-logo_alignment="center">
+    </div>
+    <button id="start-button" class="hidden" onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <script>
+    function handleGoogleSignIn(response) {
+      const credential = response.credential;
+      const userInfo = JSON.parse(atob(credential.split('.')[1]));
+      localStorage.setItem('username', userInfo.name);
+      alert(`Welcome, ${userInfo.name}!`);
+      document.getElementById('start-button').classList.remove('hidden');
+    }
+
+    function startQuiz() {
+      window.location.href = "quiz.html";
+    }
+  </script>
+</body>
+</html>
+  
